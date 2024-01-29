@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Navbar.module.css";
 import { getImgUrl } from "../../util";
 
 const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   return (
     <nav className={styles.navbar}>
       <a className={styles.title} href="/">
-        Portfolio | vite
+        Portfolio
       </a>
       <div className={styles.menu}>
         <img
-          src={getImgUrl("menu.svg")}
-          alt="menu"
           className={styles.menuBtn}
+          src={menuOpen ? getImgUrl("menuClose.svg") : getImgUrl("menuOpen.svg")}
+          alt="menu-button"
+          onClick={() => setMenuOpen(!menuOpen)}
         />
-        <ul className={styles.menuItems}>
+        <ul
+          className={`${styles.menuItems} ${menuOpen && styles.menuOpen}`}
+          onClick={() => setMenuOpen(false)}
+        >
           <li>
             <a href="#about">About</a>
           </li>
@@ -25,12 +31,11 @@ const Navbar = () => {
             <a href="#projects">Projects</a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <a href="#about">Contact</a>
           </li>
         </ul>
       </div>
     </nav>
   );
 };
-
-export default Navbar;
+export default Navbar
